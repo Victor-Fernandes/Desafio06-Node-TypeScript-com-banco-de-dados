@@ -2,7 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  ManyToOne,
   JoinColumn,
   UpdateDateColumn,
   CreateDateColumn,
@@ -23,8 +23,11 @@ class Transaction {
   @Column()
   value: number;
 
-  @ManyToMany(() => Category)
+  @ManyToOne(() => Category, category => category.transaction, { eager: true })
   @JoinColumn({ name: 'category_id' })
+  category: Category;
+
+  @Column()
   category_id: string;
 
   @CreateDateColumn()
